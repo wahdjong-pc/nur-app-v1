@@ -93,15 +93,32 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                   <p>Data Retribusi</p>
                 </a>
               </li>
-
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Database (Coming Soon)</p>
-                </a>
-              </li>
-
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <p>
+                Database
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="data-sewa.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Sewa</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/charts/flot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Denah</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -205,7 +222,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="../js/jquery/jquery/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="../js/jquery/jquery/jquery.min.js"></script> -->
+
 <!-- jQuery UI 1.11.4 -->
 <script src="../js/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 4 -->
