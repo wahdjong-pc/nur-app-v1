@@ -828,59 +828,85 @@ function pilihBlok(){
   let nomor             = "";
   
 
-  if (valueBlok == "A") {
-    for (let i = 1; i <= 30; i++){
-      nomor += "<option value="+i+">"
-      nomor += i
-      nomor +="</option>";
-      document.getElementById('nomor').innerHTML = nomor;
-    }
-
-
-  }else if(valueBlok == "B"){
+  if (valueBlok == "A" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Kering") {
     for (let i = 1; i <= 2; i++){
       nomor += "<option value="+i+">"
       nomor += i
       nomor +="</option>";
       document.getElementById('nomor').innerHTML = nomor;
     }
-  }else if(valueBlok == "C"){
+  }else if(valueBlok == "B" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Kering"){
     for (let i = 1; i <= 3; i++){
       nomor += "<option value="+i+">"
       nomor += i
       nomor +="</option>";
       document.getElementById('nomor').innerHTML = nomor;
     }
-  }else if(valueBlok == "D"){
+  }else if(valueBlok == "C" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Kering"){
     for (let i = 1; i <= 4; i++){
       nomor += "<option value="+i+">"
       nomor += i
       nomor +="</option>";
       document.getElementById('nomor').innerHTML = nomor;
     }
-  }else if(valueBlok == "E"){
+  }else if(valueBlok == "D" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Kering"){
     for (let i = 1; i <= 5; i++){
       nomor += "<option value="+i+">"
       nomor += i
       nomor +="</option>";
       document.getElementById('nomor').innerHTML = nomor;
     }
-  }else if(valueBlok == "K" && valueJenisPasar == "Kios"){
-    for (let i = 1; i <= 8; i++){
+  }else if(valueBlok == "K" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Kering"){
+    for (let i = 1; i <= 6; i++){
       nomor += "<option value="+i+">"
       nomor += i
       nomor +="</option>";
       document.getElementById('nomor').innerHTML = nomor;
     }
-  }else if(valueBlok == "L"){
-    for (let i = 1; i <= 8; i++){
-      nomor += "<option value="+i+">"
-      nomor += i
-      nomor +="</option>";
-      document.getElementById('nomor').innerHTML = nomor;
-    }
-  }else if(valueBlok == "K" && valueJenisPasar == "Pasar Kering"){
+  }else if(valueBlok == "A" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Basah"){
     for (let i = 1; i <= 7; i++){
+      nomor += "<option value="+i+">"
+      nomor += i
+      nomor +="</option>";
+      document.getElementById('nomor').innerHTML = nomor;
+    }
+  }else if(valueBlok == "B" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Basah"){
+    for (let i = 1; i <= 8; i++){
+      nomor += "<option value="+i+">"
+      nomor += i
+      nomor +="</option>";
+      document.getElementById('nomor').innerHTML = nomor;
+    }
+  }else if(valueBlok == "C" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Basah"){
+    for (let i = 1; i <= 9; i++){
+      nomor += "<option value="+i+">"
+      nomor += i
+      nomor +="</option>";
+      document.getElementById('nomor').innerHTML = nomor;
+    }
+  }else if(valueBlok == "D" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Basah"){
+    for (let i = 1; i <= 10; i++){
+      nomor += "<option value="+i+">"
+      nomor += i
+      nomor +="</option>";
+      document.getElementById('nomor').innerHTML = nomor;
+    }
+  }else if(valueBlok == "E" && valuePasar == "KOBA" && valueJenisPasar == "Pasar Basah"){
+    for (let i = 1; i <= 11; i++){
+      nomor += "<option value="+i+">"
+      nomor += i
+      nomor +="</option>";
+      document.getElementById('nomor').innerHTML = nomor;
+    }
+  }else if(valueBlok == "L" && valuePasar == "KOBA" && valueJenisPasar == "Kios"){
+    for (let i = 1; i <= 12; i++){
+      nomor += "<option value="+i+">"
+      nomor += i
+      nomor +="</option>";
+      document.getElementById('nomor').innerHTML = nomor;
+    }
+  }else if(valueBlok == "K" && valuePasar == "KOBA" && valueJenisPasar == "Kios"){
+    for (let i = 1; i <= 13; i++){
       nomor += "<option value="+i+">"
       nomor += i
       nomor +="</option>";
@@ -889,27 +915,27 @@ function pilihBlok(){
   }
 
 
-  if(valueJenisPasar == "Pasar Kering" && valueBlok == "A"){
+  if(valueJenisPasar == "Pasar Kering" && valueBlok == "A" && valuePasar == "KOBA"){
     elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "B"){
+  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "B" && valuePasar == "KOBA"){
     elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "C"){
+  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "C" && valuePasar == "KOBA"){
     elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "D"){
+  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "D" && valuePasar == "KOBA"){
     elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "K"){
+  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "K" && valuePasar == "KOBA"){
     elementHargaSewa.value = 230000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "A"){
+  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "A" && valuePasar == "KOBA"){
     elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "B"){
+  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "B" && valuePasar == "KOBA"){
     elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "C"){
+  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "C" && valuePasar == "KOBA"){
     elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "D"){
+  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "D" && valuePasar == "KOBA"){
     elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "E"){
+  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "E" && valuePasar == "KOBA"){
     elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Kios" && valueBlok == "L" || valueBlok == "K"){
+  }else if(valueJenisPasar == "Kios" && valuePasar == "KOBA" && valueBlok == "L" || valueBlok == "K"){
     elementHargaSewa.value = 233000;
   }
 
