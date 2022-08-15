@@ -189,12 +189,12 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-md-12">
-            <div class="card card-warning">
+            <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">Tambah data sewa</h3>
               </div>
 
-              <form action="proses-retribusi/proses_tambah.php" id="formRetribusi" method="post">
+              <form action="proses-retribusi/proses_tambah.php" id="formDataSewa" method="post">
               <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -231,7 +231,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="tmp-lahir" name="tmp_lahir">
+                            <input type="text" class="form-control" id="tmpLahir" name="tmpLahir">
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -244,7 +244,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
-                            <input type="date" class="form-control" id="tgl-lahir" name="tgl_lahir">
+                            <input type="date" class="form-control" id="tglLahir" name="tglLahir">
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -270,7 +270,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
-                            <input type="number" class="form-control" id="no-hp" name="no_hp">
+                            <input type="number" class="form-control" id="noHp" name="noHp">
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -300,7 +300,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <label>JENIS PASAR :</label>
 
                         <div class="input-group">
-                            <select class="custom-select form-control-border" id="jenis-pasar" name="jenis_pasar" onchange="pilihJenisPasar()">
+                            <select class="custom-select form-control-border" id="jenisPasar" name="jenisPasar" onchange="pilihJenisPasar()">
                             <option value="" hidden>Pilih Jenis Pasar</option>
                             </select>
                         </div>
@@ -311,15 +311,15 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <div class="form-group">  
                         <label>BLOK - NOMOR:</label>
                         <div class="row">
-                          <div class="col-md-2">
+                          <div class="col-md-4">
                             <div class="input-group">
                               <select class="custom-select form-control-border" id="blok" name="blok" onchange="pilihBlok()">
                               </select>
                             </div>
                             <!-- /.input group -->
                           </div>
-
-                          <div class="col-md-2">
+-
+                          <div class="col-md-6">
                             <div class="input-group">
                               <select class="custom-select form-control-border" id="nomor" name="nomor">
                               </select>
@@ -337,7 +337,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <div class="input-group-prepend">
                           <span class="input-group-text">Rp.</span>
                         </div>
-                        <input type="number" class="form-control" id="harga-sewa" name="harga_sewa" readonly>
+                        <input type="number" class="form-control" id="hargaSewa" name="hargaSewa" readonly>
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -350,7 +350,40 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="jenis-dagangan" name="jenis_dagangan">
+                            <input type="text" class="form-control" id="jenisDagangan" name="jenisDagangan">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">  
+                        <label>MASA BERLAKU - SHP :</label>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <input type="date" class="form-control" id="dariShp" name="dariShp">
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                            <span>s/d</span>
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <input type="date" class="form-control" id="sampaiShp" name="sampaiShp">
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                        </div>
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>TANGGAL JATUH TEMPO :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="tglTempo" name="tglTempo" value="Tanggal 28 Setiap Bulan" readonly>
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -361,8 +394,8 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-block btn-outline-primary" name="submit-retribusi">Tambah Data Retribusi</button>
-              </div>
+                <button type="submit" class="btn btn-block btn-outline-success" name="submit-retribusi">Tambah Data Sewa</button>
+              </div>  
               <!-- /.card-body -->
             </form>
             </div>
@@ -374,108 +407,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
     </section>
     <!-- /.content -->
     
-    <!-- modal -->
-  
-    <div class="modal fade" id="modal-retribusi">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Tambah Data Rertribusi Lanjutan</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-            <form action="proses-retribusi/proses_tambah.php" id="formRetribusi2" method="post">
-              <div class="card-body">
-                <div class="form-group">  
-                  <label>PASAR :</label>
-
-                  <div class="input-group">
-                  <input type="text" class="form-control" id="pasar-lanjutan" name="pasar" readonly>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-
-                <div class="form-group">
-                  <label>TANGGAL :</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
-                    </div>
-                    <input type="date" class="form-control" id="tanggal-lanjutan" name="tanggal" readonly>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-
-                <div class="form-group">
-                  <label>JENIS TIKET :</label>
-
-                  <div class="input-group">
-                    <select onchange="pilihBiayaLanjutan()" class="custom-select form-control-border" id="jenis-tiket-lanjutan" name="jenis_tiket">
-                      <option value="" hidden>Pilih Jenis Tiket</option>
-                      <option value="LAPAK">LAPAK</option>
-                      <option value="KIOS">KIOS</option>
-                      <option value="MUSIMAN">MUSIMAN</option>
-                    </select>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-
-                <div class="form-group">
-                  <label>BIAYA :</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Rp.</span>
-                    </div>
-                    <input type="number" class="form-control" id="biaya-lanjutan" name="biaya" readonly>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-
-                <div class="form-group">
-                  <label>NOMOR KIOS :</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
-                    </div>
-                    <input type="text" class="form-control" id="no_kios" name="no_kios">
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-
-                <div class="form-group">
-                  <label>KODE KARCIS :</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
-                    </div>
-                    <input type="text" class="form-control" id="kode_karcis" name="kode_karcis">
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form group -->
-
-                <button type="submit" class="btn btn-block btn-outline-primary" name="submit-retribusi">Tambah Data Retribusi Selanjutnya</button>
-              </div>
-              <!-- /.card-body -->
-            </form>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+    
 
     <section class="content">
       <div class="container-fluid">
@@ -595,45 +527,92 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
   });
 
   $(function () {
-  $('#formRetribusi').validate({
+  $('#formDataSewa').validate({
     rules: {
+      nik: {
+        required: true,
+        minlength: 16,
+        maxlength: 16,
+      },
+      nama: {
+        required: true,
+      },
+      tmpLahir: {
+        required: true,
+      },
+      tglLahir: {
+        required: true,
+      },
+      alamat: {
+        required: true,
+      },
+      noHp: {
+        required: true,
+      },
       pasar: {
         required: true,
       },
-      tanggal: {
+      jenisPasar: {
         required: true,
       },
-      jenis_tiket: {
+      blok: {
         required: true,
       },
-      biaya: {
+      nomor: {
         required: true,
       },
-      no_kios: {
+      jenisDagangan: {
         required: true,
       },
-      kode_karcis: {
+      dariShp: {
         required: true,
       },
+      sampaiShp: {
+        required: true,
+      },
+
     },
     messages: {
+      nik: {
+        required: "Mohon diisi nik nya",
+        minlength: "Minimal 16 angka",
+        maxlength: "Maksimal 16 angka",
+      },
+      nama: {
+        required: "Mohon diisi nama nya!",
+      },
+      tmpLahir: {
+        required: "Mohon diisi tempat lahir nya!",
+      },
+      tglLahir: {
+        required: "Mohon dipilih tanggal lahir nya!",
+      },
+      alamat: {
+        required: "Mohon diisi alamat nya!",
+      },
+      noHp: {
+        required: "Mohon diisi no hp nya!",
+      },
       pasar: {
         required: "Mohon dipilih pasar nya!",
       },
-      tanggal: {
-        required: "Mohon diisi tanggal nya!",
+      jenisPasar: {
+        required: "Mohon dipilih jenis pasar nya!",
       },
-      jenis_tiket: {
-        required: "Mohon dipilih jenis tiket nya!",
+      blok: {
+        required: "Mohon dipilih blok nya!",
       },
-      biaya: {
-        required: "Mohon diisi biaya nya!",
+      nomor: {
+        required: "Mohon dipilih nomor nya!",
       },
-      no_kios: {
-        required: "Mohon diisi nomor kios nya!",
+      jenisDagangan: {
+        required: "Mohon diisi jenis dagangan nya!",
       },
-      kode_karcis: {
-        required: "Mohon diisi kode karcis nya!",
+      dariShp: {
+        required: "Mohon dipilih dari tanggal shp nya!",
+      },
+      sampaiShp: {
+        required: "Mohon dipilih sampai tanggal shp nya!",
       },
     },
     errorElement: 'span',
@@ -649,59 +628,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
     }
   });
 
-  $('#formRetribusi2').validate({
-    rules: {
-      pasar: {
-        required: true,
-      },
-      tanggal: {
-        required: true,
-      },
-      jenis_tiket: {
-        required: true,
-      },
-      biaya: {
-        required: true,
-      },
-      no_kios: {
-        required: true,
-      },
-      kode_karcis: {
-        required: true,
-      },
-    },
-    messages: {
-      pasar: {
-        required: "Mohon dipilih pasar nya!",
-      },
-      tanggal: {
-        required: "Mohon diisi tanggal nya!",
-      },
-      jenis_tiket: {
-        required: "Mohon dipilih jenis tiket nya!",
-      },
-      biaya: {
-        required: "Mohon diisi biaya nya!",
-      },
-      no_kios: {
-        required: "Mohon diisi nomor kios nya!",
-      },
-      kode_karcis: {
-        required: "Mohon diisi kode karcis nya!",
-      },
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
+  
 });
 
 
@@ -731,30 +658,30 @@ function pilihPasar(){
 
   if (value == "KOBA") {
     jenisPasar = "<option value='' hidden>Pilih Jenis Pasar</option><option value='Pasar Kering'>Pasar Kering</option><option value='Pasar Basah'>Pasar Basah</option><option value='Kios'>Kios</option>";
-    document.getElementById('jenis-pasar').innerHTML = jenisPasar;
+    document.getElementById('jenisPasar').innerHTML = jenisPasar;
     
   }else if(value == "NAMANG"){
     jenisPasar = "<option value='' hidden>Pilih Jenis Pasar</option><option value='Pasar Kering'>Pasar Kering</option><option value='Pasar Basah'>Pasar Basah</option><option value='Kios'>Kios</option>";
-    document.getElementById('jenis-pasar').innerHTML = jenisPasar;
+    document.getElementById('jenisPasar').innerHTML = jenisPasar;
   }else if(value == "SUNGAI SELAN"){
     jenisPasar = "<option value='' hidden>Pilih Jenis Pasar</option><option value='Pasar Kering'>Pasar Kering</option><option value='Pasar Basah'>Pasar Basah</option><option value='Kios'>Kios</option>";
-    document.getElementById('jenis-pasar').innerHTML = jenisPasar;
+    document.getElementById('jenisPasar').innerHTML = jenisPasar;
   }else if(value == "SIMPANG KATIS"){
     jenisPasar = "<option value='' hidden>Pilih Jenis Pasar</option><option value='Pasar Kering'>Pasar Kering</option><option value='Pasar Basah'>Pasar Basah</option><option value='Kios'>Kios</option>";
-    document.getElementById('jenis-pasar').innerHTML = jenisPasar;
+    document.getElementById('jenisPasar').innerHTML = jenisPasar;
   }else if(value == "AIR MESU"){  
     jenisPasar = "<option value='' hidden>Pilih Jenis Pasar</option><option value='Pasar Kering'>Pasar Kering</option><option value='Pasar Basah'>Pasar Basah</option><option value='Kios'>Kios</option>";
-    document.getElementById('jenis-pasar').innerHTML = jenisPasar;
+    document.getElementById('jenisPasar').innerHTML = jenisPasar;
   }else if(value == "KAYU BESI"){
     jenisPasar = "<option value='' hidden>Pilih Jenis Pasar</option><option value='Pasar Kering'>Pasar Kering</option><option value='Pasar Basah'>Pasar Basah</option><option value='Kios'>Kios</option>";
-    document.getElementById('jenis-pasar').innerHTML = jenisPasar;
+    document.getElementById('jenisPasar').innerHTML = jenisPasar;
   }
 
 }
 
 function pilihJenisPasar(){
   let valuePasar = pasar.options[pasar.selectedIndex].value;
-  let elementJenisPasar = document.getElementById('jenis-pasar');
+  let elementJenisPasar = document.getElementById('jenisPasar');
   let valueJenisPasar = elementJenisPasar.options[elementJenisPasar.selectedIndex].value;
   let blok = "";
 
@@ -819,11 +746,11 @@ function pilihJenisPasar(){
 function pilihBlok(){
   let valuePasar        = pasar.options[pasar.selectedIndex].value;
 
-  let elementJenisPasar = document.getElementById('jenis-pasar');
+  let elementJenisPasar = document.getElementById('jenisPasar');
   let valueJenisPasar = elementJenisPasar.options[elementJenisPasar.selectedIndex].value;
 
   let elementBlok       = document.getElementById('blok');
-  let elementHargaSewa  = document.getElementById('harga-sewa');
+  let elementHargaSewa  = document.getElementById('hargaSewa');
   let valueBlok         = elementBlok.options[elementBlok.selectedIndex].value;
   let nomor             = "";
   
