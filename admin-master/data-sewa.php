@@ -194,7 +194,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                 <h3 class="card-title">Tambah data sewa</h3>
               </div>
 
-              <form action="proses-retribusi/proses_tambah.php" id="formDataSewa" method="post">
+              <form action="proses-sewa/proses_tambah.php" id="formDataSewa" method="post">
               <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -275,13 +275,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
-                    </div>
-
-                    <div class="col-md-6">
                     <div class="form-group">  
                         <label>PASAR :</label>
 
                         <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
                             <select class="custom-select form-control-border" id="pasar" name="pasar" onchange="pilihPasar()">
                             <option value="" hidden>Pilih Pasar</option>
                             <option value="KOBA">KOBA</option>
@@ -296,10 +296,17 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     </div>
                     <!-- /.form group -->
 
+                    </div>
+
+                    <div class="col-md-6">
+
                     <div class="form-group">  
                         <label>JENIS PASAR :</label>
 
                         <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
                             <select class="custom-select form-control-border" id="jenisPasar" name="jenisPasar" onchange="pilihJenisPasar()">
                             <option value="" hidden>Pilih Jenis Pasar</option>
                             </select>
@@ -313,6 +320,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <div class="row">
                           <div class="col-md-4">
                             <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+
                               <select class="custom-select form-control-border" id="blok" name="blok" onchange="pilihBlok()">
                               </select>
                             </div>
@@ -321,6 +332,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 -
                           <div class="col-md-6">
                             <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
                               <select class="custom-select form-control-border" id="nomor" name="nomor">
                               </select>
                             </div>
@@ -338,6 +352,34 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                           <span class="input-group-text">Rp.</span>
                         </div>
                         <input type="number" class="form-control" id="hargaSewa" name="hargaSewa" readonly>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                      <label>PEMBAYARAN BULAN :</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+
+                        <select class="custom-select form-control-border" id="pembayaranBulan" name="pembayaranBulan">
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                        </select>
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -394,7 +436,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-block btn-outline-success" name="submit-retribusi">Tambah Data Sewa</button>
+                <button type="submit" class="btn btn-block btn-outline-success" name="submit-sewa">Tambah Data Sewa</button>
               </div>  
               <!-- /.card-body -->
             </form>
@@ -415,60 +457,11 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h1 style="text-align: center; padding: 10px 0;"><b>Seluruh Data Retribusi</b></h1>
+                <h1 style="text-align: center; padding: 10px 0;"><b>Seluruh Data Sewa</b></h1>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th style="width: 2%;">NO.</th>
-                    <th>PASAR</th>
-                    <th>TANGGAL</th>
-                    <th>JENIS TIKET</th>
-                    <th>BIAYA</th>
-                    <th>NOMOR KIOS</th>
-                    <th>KODE KARCIS</th>
-                    <th>NIK</th>
-                    <th>NAMA</th>
-                    <th>AKSI</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php 
-                  $query = $koneksi->query("SELECT * FROM tbl_retribusi ORDER BY id_retribusi DESC");
-                  $no = 1;
-
-                  while($data = $query->fetch_assoc()) :
-                    $biayaFirst = $data['biaya'];
-                  
-                    $biaya = number_format($biayaFirst,2,",",".");
-
-                    $originalDate = $data['tanggal'];
-                    $newDate = date("l, d F Y", strtotime($originalDate));
-                  ?>
-                  <tr>
-                    <td><?= $no++;?></td>
-                    <td><?= $data['pasar']; ?></td>
-                    <td><?= $newDate; ?></td>
-                    <td><?= $data['jenis_tiket']; ?></td>
-                    <td>Rp. <?= $biaya; ?></td>
-                    <td><?= $data['no_kios']; ?></td>
-                    <td><?= $data['kode_karcis']; ?></td>
-                    <td><?= $data['nik']; ?></td>
-                    <td><?= $data['nama_pegawai']; ?></td>
-                    <td>
-                      <a href="data-retribusi.php?id=<?= $data['id_retribusi']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
-                      <button onclick="hapus(<?= $data['id_retribusi']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>
-                      <a onclick="return showData('<?= $data['pasar'] ;?>','<?= $data['tanggal'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-retribusi"><i class="fa fa-plus"></i></a>
-                      <a href="../result-laporan.php?pasar=<?= $data['pasar'];?>&tanggal=<?= $data['tanggal'];?>" class="btn btn-outline-primary btn-sm" title="Download"><i class="fa fa-download"></i></a>
-                    </td>
-                  </tr>
-
-                  <?php endwhile; ?>
-                  
-                  </tbody>
-                </table>
+              <div class="card-body" id="card-body">
+                
               </div>
               <!-- /.card-body -->
             </div>
@@ -558,6 +551,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       blok: {
         required: true,
       },
+      pembayaranBulan: {
+        required: true,
+      },
       nomor: {
         required: true,
       },
@@ -605,6 +601,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       nomor: {
         required: "Mohon dipilih nomor nya!",
       },
+      pembayaranBulan: {
+        required: "Mohon dipilih bulan pembayaran nya!",
+      },
       jenisDagangan: {
         required: "Mohon diisi jenis dagangan nya!",
       },
@@ -636,7 +635,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
 function hapus(id){
  Swal.fire({
-  title: 'Apakah anda yakin menghapus data retribusi ini?',
+  title: 'Apakah anda yakin menghapus data sewa ini?',
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -644,7 +643,7 @@ function hapus(id){
   confirmButtonText: 'Ya'
 }).then((result) => {
   if (result.isConfirmed) {
-    window.location.href='proses-retribusi/proses_hapus.php?id='+id
+    window.location.href='proses-sewa/proses_hapus.php?id='+id
   }
 })
 }
@@ -867,6 +866,22 @@ function pilihBlok(){
   }
 
 } 
+
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("card-body").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "proses-sewa/data-sewa-show.php", true);
+  xhttp.send();
+}
+
+setInterval(() => {
+    loadXMLDoc();
+}, 1000);
+window.onload = loadXMLDoc;
 
 </script>
 
