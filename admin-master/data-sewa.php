@@ -32,41 +32,41 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
   <link rel="stylesheet" href="../sweatalert/dist/sweetalert2.min.css">
 
   <script type="text/javascript">
-    function pilihBiaya(){
-      const tiket = document.getElementById("jenis_tiket");
-      const tiketDipilih = tiket.value;
-      
-      if (tiketDipilih == "LAPAK") {
-        document.getElementById("biaya").value = 2000;
-      }else if (tiketDipilih == "KIOS") {
-        document.getElementById("biaya").value = 3000;
-      }else{
-        document.getElementById("biaya").value = 5000;
-      }
-    }
 
-    function pilihBiayaLanjutan(){
-      const tiket = document.getElementById("jenis-tiket-lanjutan");
-      const tiketDipilih = tiket.value;
-      
-      if (tiketDipilih == "LAPAK") {
-        document.getElementById("biaya-lanjutan").value = 2000;
-      }else if (tiketDipilih == "KIOS") {
-        document.getElementById("biaya-lanjutan").value = 3000;
-      }else{
-        document.getElementById("biaya-lanjutan").value = 5000;
-      }
-    }
+    function showDataSewa(idSewa, nik, nama, tmpLahir, tglLahir, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo)  {
+      let idsewa                  = idSewa;
+      let nikPenyewa              = nik;
+      let namaPenyewa             = nama;
+      let tempatLahirPenyewa      = tmpLahir;
+      let tglLahirPenyewa         = tglLahir;
+      let alamatPenyewa           = alamat;
+      let noHpPenyewa             = noHp;
+      let pasarPenyewa            = pasar;
+      let jenisPasarPenyewa       = jenisPasar;
+      let blokNomorPenyewa        = blokNomor;
+      let hargaSewaPenyewa        = hargaSewa;
+      let pembayaranBulanPenyewa  = pembayaranBulan;
+      let jenisDagangPenyewa      = jenisDagangan;
+      let dariShpPenyewa          = dariShp;
+      let sampaiShpPenyewa        = sampaiShp;
+      let tglTempoPenyewa         = tglTempo;  
 
+      document.getElementById("idSewa").value                   = idSewa;
+      document.getElementById("nikPenyewa").value               = nikPenyewa;
+      document.getElementById("namaPenyewa").value              = namaPenyewa;
+      document.getElementById("tmpLahirPenyewa").value          = tempatLahirPenyewa;
+      document.getElementById("tglLahirPenyewa").value          = tglLahirPenyewa;
+      document.getElementById("alamatPenyewa").value            = alamatPenyewa;
+      document.getElementById("noHpPenyewa").value              = noHpPenyewa;
+      document.getElementById("pasarPenyewa").value             = pasarPenyewa;
+      document.getElementById("jenisPasarPenyewa").value        = jenisPasarPenyewa;
+      document.getElementById("blokNomorPenyewa").value         = blokNomorPenyewa;
+      document.getElementById("hargaSewaPenyewa").value         = hargaSewaPenyewa;
+      document.getElementById("pembayaranBulanPenyewa").value   = pembayaranBulanPenyewa;
+      document.getElementById("jenisDaganganPenyewa").value     = jenisDagangPenyewa;
+      document.getElementById("dariShpPenyewa").value           = dariShpPenyewa;
+      document.getElementById("sampaiShpPenyewa").value         = sampaiShpPenyewa;
 
-    
-
-    function showData(pasar, tanggal){
-      let pasarLanjutan = pasar;
-      let tanggalLanjutan = tanggal;
-
-      document.getElementById("pasar-lanjutan").value = pasarLanjutan;
-      document.getElementById("tanggal-lanjutan").value = tanggalLanjutan;
     }
   </script>
 </head>
@@ -189,6 +189,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-md-12">
+          <?php if(empty($_GET)) { ?>
             <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">Tambah data sewa</h3>
@@ -442,12 +443,743 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
             </form>
             </div>
             <!-- /.card -->
+            <?php }else {
+            
+            $id_sewa = $_GET['id'];
+             
+            $query = $koneksi->query("SELECT * FROM tbl_sewa WHERE id_sewa = '$id_sewa'");
+
+            foreach($query as $data_sewa) : 
+
+              
+
+              $blokeExplode = explode(".", $data_sewa['blok_nomor']);
+
+              $blok         = $blokeExplode[0];
+              $nomor        = $blokeExplode[1];
+
+            
+            ?>
+
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Edit data sewa</h3>
+              </div>
+
+              <form action="proses-sewa/proses_edit.php" id="formDataSewa" method="post">
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                    <div class="form-group">
+                    <input hidden type="text" class="form-control" id="idSewa" name="idSewa" value="<?= $data_sewa['id_sewa']; ?>">
+                        <label>NIK :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="nik" name="nik" value="<?= $data_sewa['nik']; ?>">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>NAMA :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="nama" name="nama" value="<?= $data_sewa['nama']; ?>">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    
+                    <div class="form-group">
+                        <label>TEMPAT LAHIR :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="tmpLahir" name="tmpLahir" value="<?= $data_sewa['tmpt_lahir'];?>">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>TANGGAL LAHIR:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="date" class="form-control" id="tglLahir" name="tglLahir" value="<?= $data_sewa['tgl_lahir']; ?>">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>ALAMAT :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <textarea class="form-control" rows="3" id="alamat" name="alamat"><?= $data_sewa['alamat']; ?></textarea>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>NO HP :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="noHp" name="noHp" value="<?= $data_sewa['no_hp']; ?>">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    <div class="form-group">  
+                        <label>PASAR :</label>
+
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+                        <select class="custom-select form-control-border" id="pasar" name="pasar" onchange="pilihPasar()">
+                          <option value="" hidden>Pilih Pasar</option>
+                          <?php if ($data_sewa['pasar'] == "KOBA") { ?>
+                            
+                            <option value="KOBA" selected>KOBA</option>
+                            <option value="NAMANG">NAMANG</option>
+                            <option value="SUNGAI SELAN">SUNGAI SELAN</option>
+                            <option value="SIMPANG KATIS">SIMPANG KATIS</option>
+                            <option value="AIR MESU">AIR MESU</option>
+                            <option value="KAYU BESI">KAYU BESI</option>
+                          <?php }else if($data_sewa['pasar'] == "NAMANG"){ ?>
+                            <option value="KOBA">KOBA</option>
+                            <option value="NAMANG" selected>NAMANG</option>
+                            <option value="SUNGAI SELAN">SUNGAI SELAN</option>
+                            <option value="SIMPANG KATIS">SIMPANG KATIS</option>
+                            <option value="AIR MESU">AIR MESU</option>
+                            <option value="KAYU BESI">KAYU BESI</option>
+                          <?php }else if($data_sewa['pasar'] == "SUNGAI SELAN"){ ?>
+                            <option value="KOBA">KOBA</option>
+                            <option value="NAMANG">NAMANG</option>
+                            <option value="SUNGAI SELAN" selected>SUNGAI SELAN</option>
+                            <option value="SIMPANG KATIS">SIMPANG KATIS</option>
+                            <option value="AIR MESU">AIR MESU</option>
+                            <option value="KAYU BESI">KAYU BESI</option>
+                          <?php }else if($data_sewa['pasar'] == "SIMPANG KATIS"){ ?>
+                            <option value="KOBA">KOBA</option>
+                            <option value="NAMANG">NAMANG</option>
+                            <option value="SUNGAI SELAN">SUNGAI SELAN</option>
+                            <option value="SIMPANG KATIS" selected>SIMPANG KATIS</option>
+                            <option value="AIR MESU">AIR MESU</option>
+                            <option value="KAYU BESI">KAYU BESI</option>
+                          <?php }else if($data_sewa['pasar'] == "AIR MESU"){ ?>
+                            <option value="KOBA">KOBA</option>
+                            <option value="NAMANG">NAMANG</option>
+                            <option value="SUNGAI SELAN">SUNGAI SELAN</option>
+                            <option value="SIMPANG KATIS">SIMPANG KATIS</option>
+                            <option value="AIR MESU" selected>AIR MESU</option>
+                            <option value="KAYU BESI">KAYU BESI</option>
+                          <?php }else if($data_sewa['pasar'] == "KAYU BESI"){ ?>
+                            <option value="KOBA">KOBA</option>
+                            <option value="NAMANG" >NAMANG</option>
+                            <option value="SUNGAI SELAN">SUNGAI SELAN</option>
+                            <option value="SIMPANG KATIS">SIMPANG KATIS</option>
+                            <option value="AIR MESU">AIR MESU</option>
+                            <option value="KAYU BESI" selected>KAYU BESI</option>
+                          <?php } ?>
+                        </select>
+                        </div>
+                    <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                    <div class="form-group">  
+                        <label>JENIS PASAR :</label>
+
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+                            <select class="custom-select form-control-border" id="jenisPasar" name="jenisPasar" onchange="pilihJenisPasar()">
+                            <option value="" hidden>Pilih Jenis Pasar</option>
+                            <option value="<?= $data_sewa['jenis_pasar']; ?>" selected><?= $data_sewa['jenis_pasar']; ?></option>
+                            </select>
+                        </div>
+                    <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">  
+                        <label>BLOK - NOMOR:</label>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+
+                              <select class="custom-select form-control-border" id="blok" name="blok" onchange="pilihBlok()">
+                              <option value="<?= $blok; ?>" selected><?= $blok; ?></option>
+                              </select>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+-
+                          <div class="col-md-6">
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                              <select class="custom-select form-control-border" id="nomor" name="nomor">
+                              <option value="<?= $nomor; ?>" selected><?= $nomor; ?></option>
+                              </select>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                        </div>
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                      <label>HARGA SEWA :</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rp.</span>
+                        </div>
+                        <input type="number" class="form-control" id="hargaSewa" name="hargaSewa" value="<?= $data_sewa['harga_sewa']; ?>" readonly>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                      <label>PEMBAYARAN BULAN :</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+
+                        <select class="custom-select form-control-border" id="pembayaranBulan" name="pembayaranBulan">
+                          <?php if ($data_sewa['pembayaran_bulan'] == 'Januari') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" selected>Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Februari') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari" selected>Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Maret') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret" selected>Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'April') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari" >Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April" selected>April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Mei') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei" selected>Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Juni') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni" selected>Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Juli') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli" selected>Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Agustus') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus" selected>Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'September') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September" selected>September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Oktober') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober" selected>Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'November') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November" selected>November</option>
+                            <option value="Desember">Desember</option>
+                            <?php }else if($data_sewa['pembayaran_bulan'] == 'Desember') { ?>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari" >Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember" selected>Desember</option>
+                            <?php } ?>
+                        </select>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>JENIS DAGANGAN :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="jenisDagangan" name="jenisDagangan" value="<?= $data_sewa['jenis_dagangan']; ?>">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">  
+                        <label>MASA BERLAKU - SHP :</label>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <input type="date" class="form-control" id="dariShp" name="dariShp" value="<?= $data_sewa['dari_shp']; ?>">
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                            <span>s/d</span>
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <input type="date" class="form-control" id="sampaiShp" name="sampaiShp" value="<?= $data_sewa['sampai_shp']; ?>">
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                        </div>
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>TANGGAL JATUH TEMPO :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="tglTempo" name="tglTempo" value="Tanggal 28 Setiap Bulan" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    
+
+                        
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-block btn-outline-success" name="submit-edit-sewa">Edit Data Sewa</button>
+              </div>  
+              <!-- /.card-body -->
+            </form>
+            <?php endforeach; ?>
+            </div>
+            <!-- /.card -->
+            <?php } ?>
+
+
           </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+    <!-- modal -->
+  
+    <div class="modal fade" id="modal-sewa">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Tambah Data Sewa Bulanan</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <form action="proses-sewa/proses_tambah_lanjutan.php" id="formSewaLanjutan" method="post">
+              <div class="card-body">
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>ID SEWA :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="idSewa" name="idSewa" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>NIK :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="nikPenyewa" name="nik" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>NAMA :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="namaPenyewa" name="nama" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    
+                    <div class="form-group">
+                        <label>TEMPAT LAHIR :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="tmpLahirPenyewa" name="tmpLahir" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>TANGGAL LAHIR:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="date" class="form-control" id="tglLahirPenyewa" name="tglLahir" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>ALAMAT :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <textarea class="form-control" rows="3" id="alamatPenyewa" name="alamat" readonly></textarea>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>NO HP :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="noHpPenyewa" name="noHp" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    
+
+                    </div>
+
+                    <div class="col-md-6">
+                    <div class="form-group">  
+                        <label>PASAR :</label>
+
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="pasarPenyewa" name="pasar" readonly>
+                        </div>
+                    <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    
+                    <div class="form-group">  
+                        <label>JENIS PASAR :</label>
+
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="jenisPasarPenyewa" name="jenisPasar" readonly>
+                        </div>
+                    <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">  
+                        <label>BLOK - NOMOR:</label>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+
+                            <input type="text" class="form-control" id="blokNomorPenyewa" name="blokNomor" readonly>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                          
+                        </div>
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                      <label>HARGA SEWA :</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rp.</span>
+                        </div>
+                        <input type="number" class="form-control" id="hargaSewaPenyewa" name="hargaSewa" readonly>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                      <label>PEMBAYARAN BULAN :</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                        </div>
+
+                        <select class="custom-select form-control-border" id="pembayaranBulanPenyewa" name="pembayaranBulan" readonly>
+                            <option value="" hidden>Pilih Bulan</option>
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                        </select>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>JENIS DAGANGAN :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="jenisDaganganPenyewa" name="jenisDagangan" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">  
+                        <label>MASA BERLAKU - SHP :</label>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <input type="date" class="form-control" id="dariShpPenyewa" name="dariShp" readonly>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                            <span>s/d</span>
+                          <div class="col-md-5">
+                            <div class="input-group">
+                            <input type="date" class="form-control" id="sampaiShpPenyewa" name="sampaiShp" readonly>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                        </div>
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>TANGGAL JATUH TEMPO :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="tglTempo" name="tglTempo" value="Tanggal 28 Setiap Bulan" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                    </div>
+                </div>
+                
+
+                <button type="submit" class="btn btn-block btn-outline-primary" name="submit-sewa-lanjutan">Tambah Data Pembayaran Sewa Selanjutnya</button>
+              </div>
+              <!-- /.card-body -->
+            </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
     
     
 
@@ -627,6 +1359,8 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
     }
   });
 
+ 
+
   
 });
 
@@ -648,6 +1382,7 @@ function hapus(id){
 })
 }
 
+// start function choice add data sewa
 function pilihPasar(){
   let pasar = document.getElementById('pasar');
   let value = pasar.options[pasar.selectedIndex].value;
@@ -866,6 +1601,9 @@ function pilihBlok(){
   }
 
 } 
+// end function choice add data sewa
+
+
 
 function loadXMLDoc() {
   var xhttp = new XMLHttpRequest();

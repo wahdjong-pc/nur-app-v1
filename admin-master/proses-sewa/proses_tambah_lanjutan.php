@@ -8,9 +8,10 @@
  <!-- SweatAlert -->
   <link rel="stylesheet" href="../../sweatalert/dist/sweetalert2.min.css">
   <!-- SweetAlert -->
-<script src="../../sweatalert/dist/sweetalert2.all.min.js"></script>
+  <script src="../../sweatalert/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
+ 
 
 <?php
 include '../../config/config.php';
@@ -21,9 +22,8 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
      </script>";
      }
 
-if (isset($_POST['submit-edit-sewa'])) {
-  $id_sewa = $_POST['idSewa'];
-
+if (isset($_POST['submit-sewa-lanjutan'])) {
+  $id_sewa          = $_POST['idSewa'];
   $nik              = $_POST['nik'];
   $nama             = $_POST['nama'];
   $tmp_lahir        = $_POST['tmpLahir'];
@@ -32,12 +32,7 @@ if (isset($_POST['submit-edit-sewa'])) {
   $no_hp            = $_POST['noHp'];
   $pasar            = $_POST['pasar'];
   $jenis_pasar      = $_POST['jenisPasar'];
-
-  $blok             = $_POST['blok'];
-  $nomor            = $_POST['nomor'];
-  $data_blok_nomor  = array($blok,$nomor);
-  $blok_nomor       = implode(".",$data_blok_nomor);
-
+  $blok_nomor       = $_POST['blokNomor'];
   $harga_sewa       = $_POST['hargaSewa'];
   $pembayaran_bulan = $_POST['pembayaranBulan'];
   $jenis_dagangan   = $_POST['jenisDagangan'];
@@ -48,32 +43,38 @@ if (isset($_POST['submit-edit-sewa'])) {
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
 
+  $cekData = $koneksi->query("SELECT * FROM tbl_sewa WHERE id_sewa = '$id_sewa' AND blok_nomor = '$blok_nomor' AND pembayaran_bulan = '$pembayaran_bulan'");
 
-$query = $koneksi->query("UPDATE tbl_sewa SET 
-nik              = '$nik', 
-nama             = '$nama', 
-tmpt_lahir       = '$tmp_lahir', 
-tgl_lahir        = '$tgl_lahir', 
-alamat           = '$alamat',
-no_hp            = '$no_hp',
-pasar            = '$pasar',
-jenis_pasar      = '$jenis_pasar',
-blok_nomor       = '$blok_nomor',
-harga_sewa       = '$harga_sewa',
-pembayaran_bulan = '$pembayaran_bulan',
-jenis_dagangan   = '$jenis_dagangan',
-dari_shp         = '$dari_shp',
-sampai_shp       = '$sampai_shp',
-tgl_tempo        = '$tgl_tempo',
-author_nik       = '$author_nik',
-author_nama      = '$author_nama' WHERE id_sewa = '$id_sewa'");
+  $resultCek = mysqli_num_rows($cekData);
+
+
+  if($resultCek > 0){
+    // pesan jika data tersimpan
+    echo "<script>
+    Swal.fire({
+        title: 'Berhasil',
+        text: 'Maaf data pembayaran sewa bulan ". $pembayaran_bulan ." sudah dibayar!',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href='../data-sewa.php'
+        }
+      })
+    </script>";
+  }else{
+
+  $query = $koneksi->query("INSERT INTO tbl_sewa(nik,nama,tmpt_lahir,tgl_lahir,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,author_nik,author_nama) VALUES('$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$author_nik', '$author_nama')");
+
+
+
 
 if ($query) {
-    // pesan jika data berubah
+    // pesan jika data tersimpan
     echo "<script>
     Swal.fire({
      title: 'Berhasil',
-     text: 'Data sewa berhasil diubah!',
+     text: 'Data sewa berhasil ditambah!',
      icon: 'success',
      confirmButtonColor: '#3085d6'
    }).then((result) => {
@@ -83,10 +84,13 @@ if ($query) {
    })
 </script>";
   } else {
-    // pesan jika data gagal diubah
-    echo "<script>alert('Data sewa gagal diubah'); window.location.href='../data-sewa.php'</script>";
+    // pesan jika data gagal disimpan
+    echo "<script>alert('Data sewa gagal ditambahkan'); window.location.href='../data-sewa.php'</script>";
   }
 }
+}
+
 ?>
+
 </body>
 </html>

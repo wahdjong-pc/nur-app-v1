@@ -37,7 +37,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                   
                     $harga_sewa = number_format($harga_sewa_first,2,",",".");
 
-                    $originalDateLahir = $data['tanggal'];
+                    $originalDateLahir = $data['tgl_lahir'];
                     $newDateLahir = date("l, d F Y", strtotime($originalDateLahir));
                 ?>
             <tr>
@@ -54,9 +54,24 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                 <td>Rp.<?= $harga_sewa; ?></td>
                 <td><?= $data['jenis_dagangan']; ?></td>
                 <td>
-                    <a href="data-retribusi.php?id=<?= $data['id_retribusi']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
+                    <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
                     <button onclick="hapus(<?= $data['id_sewa']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>
-                    <a onclick="return showData('<?= $data['pasar'] ;?>','<?= $data['tanggal'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-retribusi"><i class="fa fa-plus"></i></a>
+                    <a onclick="return showDataSewa('<?= $data['id_sewa'] ;?>',
+                                                    '<?= $data['nik'] ;?>',
+                                                    '<?= $data['nama'] ;?>',
+                                                    '<?= $data['tmpt_lahir'] ;?>',
+                                                    '<?= $data['tgl_lahir'] ;?>',
+                                                    '<?= $data['alamat'] ;?>',
+                                                    '<?= $data['no_hp'] ;?>',
+                                                    '<?= $data['pasar'] ;?>',
+                                                    '<?= $data['jenis_pasar'] ;?>',
+                                                    '<?= $data['blok_nomor'] ;?>',
+                                                    '<?= $data['harga_sewa'] ;?>',
+                                                    '<?= $data['pembayaran_bulan'] ;?>',
+                                                    '<?= $data['jenis_dagangan'] ;?>',
+                                                    '<?= $data['dari_shp'] ;?>',
+                                                    '<?= $data['sampai_shp'] ;?>',
+                                                    '<?= $data['tgl_tempo'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-sewa"><i class="fa fa-plus"></i></a>
                     <a href="../result-laporan.php?pasar=<?= $data['pasar'];?>&tanggal=<?= $data['tanggal'];?>" class="btn btn-outline-primary btn-sm" title="Download"><i class="fa fa-download"></i></a>
                 </td>
             </tr>
