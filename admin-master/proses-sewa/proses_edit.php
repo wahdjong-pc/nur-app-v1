@@ -28,6 +28,7 @@ if (isset($_POST['submit-edit-sewa'])) {
   $nama             = $_POST['nama'];
   $tmp_lahir        = $_POST['tmpLahir'];
   $tgl_lahir        = $_POST['tglLahir'];
+  $jenis_kelamin    = $_POST['jenisKelamin'];
   $alamat           = $_POST['alamat'];
   $no_hp            = $_POST['noHp'];
   $pasar            = $_POST['pasar'];
@@ -40,6 +41,7 @@ if (isset($_POST['submit-edit-sewa'])) {
 
   $harga_sewa       = $_POST['hargaSewa'];
   $pembayaran_bulan = $_POST['pembayaranBulan'];
+  $pembayaran_tahun = $_POST['pembayaranTahun'];
   $jenis_dagangan   = $_POST['jenisDagangan'];
   $dari_shp         = $_POST['dariShp'];
   $sampai_shp       = $_POST['sampaiShp'];
@@ -53,7 +55,8 @@ $query = $koneksi->query("UPDATE tbl_sewa SET
 nik              = '$nik', 
 nama             = '$nama', 
 tmpt_lahir       = '$tmp_lahir', 
-tgl_lahir        = '$tgl_lahir', 
+tgl_lahir        = '$tgl_lahir',
+jenis_kelamin    = '$jenis_kelamin',
 alamat           = '$alamat',
 no_hp            = '$no_hp',
 pasar            = '$pasar',
@@ -61,12 +64,13 @@ jenis_pasar      = '$jenis_pasar',
 blok_nomor       = '$blok_nomor',
 harga_sewa       = '$harga_sewa',
 pembayaran_bulan = '$pembayaran_bulan',
+pembayaran_tahun = '$pembayaran_tahun',
 jenis_dagangan   = '$jenis_dagangan',
 dari_shp         = '$dari_shp',
 sampai_shp       = '$sampai_shp',
 tgl_tempo        = '$tgl_tempo',
 author_nik       = '$author_nik',
-author_nama      = '$author_nama' WHERE id_sewa = '$id_sewa'");
+author_nama      = '$author_nama' WHERE nik = '$nik'");
 
 if ($query) {
     // pesan jika data berubah

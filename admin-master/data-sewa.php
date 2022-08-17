@@ -13,7 +13,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Retribusi</title>
+  <title>Data Sewa Pasar</title>
 
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
 
@@ -33,12 +33,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
   <script type="text/javascript">
 
-    function showDataSewa(idSewa, nik, nama, tmpLahir, tglLahir, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo)  {
+    function showDataSewa(idSewa, nik, nama, tmpLahir, tglLahir, jenisKelamin, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo)  {
       let idsewa                  = idSewa;
       let nikPenyewa              = nik;
       let namaPenyewa             = nama;
       let tempatLahirPenyewa      = tmpLahir;
       let tglLahirPenyewa         = tglLahir;
+      let jenisKelaminPenyewa     = jenisKelamin
       let alamatPenyewa           = alamat;
       let noHpPenyewa             = noHp;
       let pasarPenyewa            = pasar;
@@ -56,6 +57,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       document.getElementById("namaPenyewa").value              = namaPenyewa;
       document.getElementById("tmpLahirPenyewa").value          = tempatLahirPenyewa;
       document.getElementById("tglLahirPenyewa").value          = tglLahirPenyewa;
+
+      if (jenisKelaminPenyewa == 1) {
+        document.getElementById("jenisKelaminPenyewa").value      = "Laki - Laki";
+      }else{
+        document.getElementById("jenisKelaminPenyewa").value      = "Perempuan";
+      }
+      
       document.getElementById("alamatPenyewa").value            = alamatPenyewa;
       document.getElementById("noHpPenyewa").value              = noHpPenyewa;
       document.getElementById("pasarPenyewa").value             = pasarPenyewa;
@@ -252,6 +260,25 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.form group -->
 
                     <div class="form-group">
+                        <label>JENIS KELAMIN:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <select class="custom-select form-control-border" id="jenisKelamin" name="jenisKelamin" >
+                            <option value="" hidden>Pilih Jenis Kelamin</option>
+                            <option value="1">Laki - Laki</option>
+                            <option value="2">Perempuan</option>
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    
+
+                    <div class="form-group">
                         <label>ALAMAT :</label>
 
                         <div class="input-group">
@@ -276,6 +303,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
+
+                    </div>
+
+                    <div class="col-md-6">
                     <div class="form-group">  
                         <label>PASAR :</label>
 
@@ -296,10 +327,6 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
-
-                    </div>
-
-                    <div class="col-md-6">
 
                     <div class="form-group">  
                         <label>JENIS PASAR :</label>
@@ -359,30 +386,46 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.form group -->
 
                     <div class="form-group">
-                      <label>PEMBAYARAN BULAN :</label>
+                      <label>PEMBAYARAN BULAN - TAHUN:</label>
+                      <div class="row">
+                        <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                          </div>
 
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                          <select class="custom-select form-control-border" id="pembayaranBulan" name="pembayaranBulan">
+                              <option value="" hidden>Pilih Bulan</option>
+                              <option value="Januari">Januari</option>
+                              <option value="Februari">Februari</option>
+                              <option value="Maret">Maret</option>
+                              <option value="April">April</option>
+                              <option value="Mei">Mei</option>
+                              <option value="Juni">Juni</option>
+                              <option value="Juli">Juli</option>
+                              <option value="Agustus">Agustus</option>
+                              <option value="September">September</option>
+                              <option value="Oktober">Oktober</option>
+                              <option value="November">November</option>
+                              <option value="Desember">Desember</option>
+                          </select>
                         </div>
+                        <!-- /.input group -->
+                        </div>
+                        <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                          </div>
 
-                        <select class="custom-select form-control-border" id="pembayaranBulan" name="pembayaranBulan">
-                            <option value="" hidden>Pilih Bulan</option>
-                            <option value="Januari">Januari</option>
-                            <option value="Februari">Februari</option>
-                            <option value="Maret">Maret</option>
-                            <option value="April">April</option>
-                            <option value="Mei">Mei</option>
-                            <option value="Juni">Juni</option>
-                            <option value="Juli">Juli</option>
-                            <option value="Agustus">Agustus</option>
-                            <option value="September">September</option>
-                            <option value="Oktober">Oktober</option>
-                            <option value="November">November</option>
-                            <option value="Desember">Desember</option>
-                        </select>
+                          <input type="text" class="form-control" id="pembayaranTahun" name="pembayaranTahun" value="<?= date("Y");?>" readonly>
+                          
+                        </div>
+                        <!-- /.input group -->
+                        </div>
                       </div>
-                      <!-- /.input group -->
+
+                      
                     </div>
                     <!-- /.form group -->
 
@@ -524,6 +567,29 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.form group -->
 
                     <div class="form-group">
+                        <label>JENIS KELAMIN:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <select class="custom-select form-control-border" id="jenisKelamin" name="jenisKelamin" >
+                            <?php if($data_sewa['jenis_kelamin'] == 1) {?>
+                              <option value="" hidden>Pilih Jenis Kelamin</option>
+                              <option value="1" selected>Laki - Laki</option>
+                              <option value="2">Perempuan</option>
+                              <?php }else{ ?>
+                                <option value="" hidden>Pilih Jenis Kelamin</option>
+                                <option value="1">Laki - Laki</option>
+                                <option value="2" selected>Perempuan</option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
                         <label>ALAMAT :</label>
 
                         <div class="input-group">
@@ -548,6 +614,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
+                    </div>
+
+                    <div class="col-md-6">
                     <div class="form-group">  
                         <label>PASAR :</label>
 
@@ -606,10 +675,6 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
-
-                    </div>
-
-                    <div class="col-md-6">
 
                     <div class="form-group">  
                         <label>JENIS PASAR :</label>
@@ -672,9 +737,11 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.form group -->
 
                     <div class="form-group">
-                      <label>PEMBAYARAN BULAN :</label>
+                      <label>PEMBAYARAN BULAN - TAHUN:</label>
 
-                      <div class="input-group">
+                      <div class="row">
+                        <div class="col-md-6">
+                        <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                         </div>
@@ -853,6 +920,22 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         </select>
                       </div>
                       <!-- /.input group -->
+                        </div>
+
+                        <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                          </div>
+
+                          <input type="text" class="form-control" id="pembayaranTahun" name="pembayaranTahun" value="<?= $data_sewa['pembayaran_tahun']; ?>" readonly>
+                          
+                        </div>
+                        <!-- /.input group -->
+                        </div>
+                      </div>
+
+                      
                     </div>
                     <!-- /.form group -->
 
@@ -993,13 +1076,26 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.form group -->
 
                     <div class="form-group">
-                        <label>TANGGAL LAHIR:</label>
+                        <label>TANGGAL LAHIR :</label>
 
                         <div class="input-group">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
                             <input type="date" class="form-control" id="tglLahirPenyewa" name="tglLahir" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>JENIS KELAMIN :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="jenisKelaminPenyewa" name="jenisKelamin" readonly>
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -1094,29 +1190,40 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
                     <div class="form-group">
                       <label>PEMBAYARAN BULAN :</label>
-
-                      <div class="input-group">
+                      <div class="row">
+                        <div class="col-md-6">
+                        <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                         </div>
 
-                        <select class="custom-select form-control-border" id="pembayaranBulanPenyewa" name="pembayaranBulan" readonly>
-                            <option value="" hidden>Pilih Bulan</option>
-                            <option value="Januari">Januari</option>
-                            <option value="Februari">Februari</option>
-                            <option value="Maret">Maret</option>
-                            <option value="April">April</option>
-                            <option value="Mei">Mei</option>
-                            <option value="Juni">Juni</option>
-                            <option value="Juli">Juli</option>
-                            <option value="Agustus">Agustus</option>
-                            <option value="September">September</option>
-                            <option value="Oktober">Oktober</option>
-                            <option value="November">November</option>
-                            <option value="Desember">Desember</option>
-                        </select>
+                          <select class="custom-select form-control-border" id="pembayaranBulanPenyewa" name="pembayaranBulan" readonly>
+                              <option value="" hidden>Pilih Bulan</option>
+                              <option value="Januari">Januari</option>
+                              <option value="Februari">Februari</option>
+                              <option value="Maret">Maret</option>
+                              <option value="April">April</option>
+                              <option value="Mei">Mei</option>
+                              <option value="Juni">Juni</option>
+                              <option value="Juli">Juli</option>
+                              <option value="Agustus">Agustus</option>
+                              <option value="September">September</option>
+                              <option value="Oktober">Oktober</option>
+                              <option value="November">November</option>
+                              <option value="Desember">Desember</option>
+                          </select>
+                        </div>
+                        <!-- /.input group -->
+                        </div>
+                        <div class="col-md-6">
+                        <div class="input-group">
+                          <input type="number" class="form-control" id="pembayaranTahunPenyewa" name="pembayaranTahun" value="<?= date("Y"); ?>" readonly>
+                        </div>
+                        <!-- /.input group -->
+                        </div>
                       </div>
-                      <!-- /.input group -->
+
+                      
                     </div>
                     <!-- /.form group -->
 
@@ -1199,15 +1306,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <th style="width: 2%;">NO.</th>
                         <th>NIK</th>
                         <th>NAMA</th>
-                        <th>TEMPAT LAHIR</th>
-                        <th>TANGGAL LAHIR</th>
                         <th>ALAMAT</th>
-                        <th>NO HP</th>
                         <th>PASAR</th>
                         <th>JENIS PASAR</th>
                         <th>BLOK - NOMOR</th>
                         <th>HARGA SEWA</th>
                         <th>JENIS DAGANGAN</th>
+                        <th>PEMBAYARAN BULAN - TAHUN</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>
@@ -1228,15 +1333,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <td><?= $no++;?></td>
                         <td><?= $data['nik']; ?></td>
                         <td><?= $data['nama']; ?></td>
-                        <td><?= $data['tmpt_lahir']; ?></td>
-                        <td><?= $newDateLahir; ?></td>
                         <td><?= $data['alamat']; ?></td>
-                        <td><?= $data['no_hp']; ?></td>
                         <td><?= $data['pasar']; ?></td>
                         <td><?= $data['jenis_pasar']; ?></td>
                         <td><?= $data['blok_nomor']; ?></td>
                         <td>Rp.<?= $harga_sewa; ?></td>
                         <td><?= $data['jenis_dagangan']; ?></td>
+                        <td><?= $data['pembayaran_bulan'];?> <?= $data['pembayaran_tahun'];?></td>
                         <td>
                             <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
                             <button onclick="hapus(<?= $data['id_sewa']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>
@@ -1245,6 +1348,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                                                             '<?= $data['nama'] ;?>',
                                                             '<?= $data['tmpt_lahir'] ;?>',
                                                             '<?= $data['tgl_lahir'] ;?>',
+                                                            '<?= $data['jenis_kelamin'] ;?>',
                                                             '<?= $data['alamat'] ;?>',
                                                             '<?= $data['no_hp'] ;?>',
                                                             '<?= $data['pasar'] ;?>',
@@ -1338,6 +1442,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       tglLahir: {
         required: true,
       },
+      jenisKelamin: {
+        required: true,
+      },
       alamat: {
         required: true,
       },
@@ -1384,6 +1491,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       },
       tglLahir: {
         required: "Mohon dipilih tanggal lahir nya!",
+      },
+      jenisKelamin: {
+        required: "Mohon dipilih jenis kelamin nya!",
       },
       alamat: {
         required: "Mohon diisi alamat nya!",

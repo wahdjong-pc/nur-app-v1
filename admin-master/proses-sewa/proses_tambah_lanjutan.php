@@ -28,6 +28,13 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
   $nama             = $_POST['nama'];
   $tmp_lahir        = $_POST['tmpLahir'];
   $tgl_lahir        = $_POST['tglLahir'];
+  $jenis_kelamin    = $_POST['jenisKelamin'];
+
+  if($jenis_kelamin == "Laki - Laki"){
+    $jenisKelaminAngka = 1;
+  }else{
+    $jenisKelaminAngka = 2;
+  }
   $alamat           = $_POST['alamat'];
   $no_hp            = $_POST['noHp'];
   $pasar            = $_POST['pasar'];
@@ -35,6 +42,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
   $blok_nomor       = $_POST['blokNomor'];
   $harga_sewa       = $_POST['hargaSewa'];
   $pembayaran_bulan = $_POST['pembayaranBulan'];
+  $pembayaran_tahun = $_POST['pembayaranTahun'];
   $jenis_dagangan   = $_POST['jenisDagangan'];
   $dari_shp         = $_POST['dariShp'];
   $sampai_shp       = $_POST['sampaiShp'];
@@ -43,7 +51,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
 
-  $cekData = $koneksi->query("SELECT * FROM tbl_sewa WHERE id_sewa = '$id_sewa' AND blok_nomor = '$blok_nomor' AND pembayaran_bulan = '$pembayaran_bulan'");
+  $cekData = $koneksi->query("SELECT * FROM tbl_sewa WHERE id_sewa = '$id_sewa' AND blok_nomor = '$blok_nomor' AND pembayaran_bulan = '$pembayaran_bulan' AND pembayaran_tahun = '$pembayaran_tahun'");
 
   $resultCek = mysqli_num_rows($cekData);
 
@@ -53,7 +61,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
     echo "<script>
     Swal.fire({
         title: 'Berhasil',
-        text: 'Maaf data pembayaran sewa bulan ". $pembayaran_bulan ." sudah dibayar!',
+        text: 'Maaf data pembayaran sewa pasar ". $pasar ." blok nomor ". $blok_nomor ." bulan ". $pembayaran_bulan ." tahun ". $pembayaran_tahun ." sudah dibayar!',
         icon: 'error',
         confirmButtonColor: '#3085d6'
       }).then((result) => {
@@ -64,7 +72,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
     </script>";
   }else{
 
-  $query = $koneksi->query("INSERT INTO tbl_sewa(nik,nama,tmpt_lahir,tgl_lahir,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,author_nik,author_nama) VALUES('$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$author_nik', '$author_nama')");
+  $query = $koneksi->query("INSERT INTO tbl_sewa(nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,author_nik,author_nama) VALUES('$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenisKelaminAngka', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$author_nik', '$author_nama')");
 
 
 
