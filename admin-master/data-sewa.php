@@ -202,11 +202,49 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
               <div class="card-header">
                 <h3 class="card-title">Tambah data sewa</h3>
               </div>
+              <?php 
+              // mengambil id qrcode dengan id paling besar
+              $queryQrCode = $koneksi->query("SELECT max(qrcode_id) as qrcodeId FROM tbl_sewa");
 
-              <form action="proses-sewa/proses_tambah.php" id="formDataSewa" method="post">
+              $data_qrcode = mysqli_fetch_array($queryQrCode);
+              $id_qrcode = $data_qrcode['qrcodeId'];
+              
+              // mengambil angka dari id qrcode terbesar, menggunakan fungsi substr
+              // dan diubah ke integer dengan (int)
+              $urutan = (int) substr($id_qrcode, 6, 6);
+              
+              // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
+              $urutan++;
+              
+              // membentuk id qrcode baru
+              // perintah sprintf("%03s", $urutan); berguna untuk membuat string menjadi 3 karakter
+              // misalnya perintah sprintf("%03s", 15); maka akan menghasilkan '015'
+              // angka yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya BRG 
+              
+              $huruf = "T-";
+              
+              $id_qrcode = $huruf . sprintf("%06s", $urutan);
+              
+              
+              ?>
+
+              <form action="../proses_tambah.php" id="formDataSewa" method="post">
               <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
+                    <div class="form-group">
+                        <label>QRCODE ID :</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="qrcodeId" name="qrcode_id" value="<?= $id_qrcode; ?>" readonly>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+
                     <div class="form-group">
                         <label>NIK :</label>
 
@@ -373,13 +411,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                     <!-- /.form group -->
 
                     <div class="form-group">
-                      <label>HARGA SEWA :</label>
+                      <label>HARGA SEWA / BULAN :</label>
 
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Rp.</span>
                         </div>
-                        <input type="number" class="form-control" id="hargaSewa" name="hargaSewa" readonly>
+                        <input type="number" class="form-control" id="hargaSewa" name="hargaSewa">
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -1755,30 +1793,6 @@ function pilihBlok(){
     }
   }
 
-
-  if(valueJenisPasar == "Pasar Kering" && valueBlok == "A" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "B" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "C" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "D" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Pasar Kering" && valueBlok == "K" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 230000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "A" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "B" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "C" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "D" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 233000;
-  }else if(valueJenisPasar == "Pasar Basah" && valueBlok == "E" && valuePasar == "KOBA"){
-    elementHargaSewa.value = 100000;
-  }else if(valueJenisPasar == "Kios" && valuePasar == "KOBA" && valueBlok == "L" || valueBlok == "K"){
-    elementHargaSewa.value = 233000;
-  }
 
 } 
 // end function choice add data sewa

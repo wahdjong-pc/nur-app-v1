@@ -25,7 +25,7 @@
 
       <form action="proses-login.php" id="formLogin" method="post">
         <div class="input-group mb-3">
-          <input type="number" class="form-control" id="nik" name="nik" placeholder="masukkan nik...">
+          <input type="number" class="form-control" id="nik" name="nik" placeholder="user id...">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" id="password" name="password" placeholder="masukkan password ...">
+          <input type="password" class="form-control" id="password" name="password" placeholder="user password ...">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-light fa-lock"></span>
