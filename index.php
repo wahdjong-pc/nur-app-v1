@@ -18,7 +18,7 @@
   <div class="card card-outline card-primary">
     <br>
     <div class="card-header text-center">
-      <h1>LOGIN APP</h1>
+      <h3>UPTD PELAYANAN PASAR BANGKA TENGAH</h3>
     </div>
     <br>
     <div class="card-body">
