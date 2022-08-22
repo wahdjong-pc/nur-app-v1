@@ -76,6 +76,8 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       document.getElementById("sampaiShpPenyewa").value         = sampaiShpPenyewa;
 
     }
+
+   
   </script>
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
@@ -228,7 +230,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
               
               ?>
 
-              <form action="../proses_tambah.php" id="formDataSewa" method="post">
+              <form action="proses-sewa/proses_tambah.php" id="formDataSewa" method="post">
               <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -1045,7 +1047,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
     </section>
     <!-- /.content -->
 
-    <!-- modal -->
+    <!-- modal sewa -->
   
     <div class="modal fade" id="modal-sewa">
         <div class="modal-dialog modal-lg">
@@ -1324,7 +1326,58 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal -->
+      <!-- /.modal sewa -->
+
+    <!-- modal qrcode -->
+  
+    <div class="modal fade" id="modal-qrcode">
+        <div class="modal-dialog modal-default">
+          <div class="modal-content">
+            <div class="modal-header">
+             <h4 class="modal-title text-center" style="margin-left: 10px;"><b>UPTD PELAYANAN PASAR BANGKA TENGAH</b></h4>
+              
+            </div>
+            <div class="modal-body">
+             <div class="row">
+              <div class="col-md-5">
+               <h2 id="pasarQr" style="
+                       position: absolute;
+                       top: 35px;
+                       left: 155%;">
+               </h2>
+               <img src="../img-qrcode/logo.png" style="
+                       position: absolute;
+                       width: 120px;
+                       top: 82px;
+                       left: 95px;
+               
+               
+               ">
+               
+               <img src="" alt="" id="qrcodeImage" class="qrcodeImage" style="
+                       width: 250px;
+                       border: 2px solid black;
+                       padding: 25px;
+                       margin-left: 20px;
+                 
+                 ">
+               <h2 id="blokNomorQr"style="
+                       position: relative;
+                       top: -30%;
+                       left: 163%;
+                       color: blue;">
+               </h2>
+                 
+              </div>
+              
+             </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal qrcode -->
     
     
 
@@ -1366,6 +1419,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
                             $originalDateLahir = $data['tgl_lahir'];
                             $newDateLahir = date("l, d F Y", strtotime($originalDateLahir));
+
+                            $srcQrcode = $data['src_qrcode'];
+                            $blok = $data['blok_nomor'];
+                            $pasar = $data['pasar'];
                         ?>
                     <tr>
                         <td><?= $no++;?></td>
@@ -1398,7 +1455,12 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                                                             '<?= $data['dari_shp'] ;?>',
                                                             '<?= $data['sampai_shp'] ;?>',
                                                             '<?= $data['tgl_tempo'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-sewa"><i class="fa fa-plus"></i></a>
-                            <a href="../result-laporan.php?pasar=<?= $data['pasar'];?>&tanggal=<?= $data['tanggal'];?>" class="btn btn-outline-primary btn-sm" title="Download"><i class="fa fa-download"></i></a>
+                            <a onclick='document.getElementById("qrcodeImage").src="../img-qrcode/<?= $srcQrcode; ?>";
+                                        document.getElementById("blokNomorQr").innerHTML = "<?= $blok; ?>" 
+                                        document.getElementById("pasarQr").innerHTML = "PASAR MODERN <b><?= $pasar; ?></b>"'; 
+                                        class="btn btn-outline-success btn-sm" title="Show QrCode" data-toggle="modal" data-target="#modal-qrcode"><i class="fa fa-qrcode"></i></a>
+                            <!-- <a href="" class="btn btn-outline-primary btn-sm" title="Download"><i class="fa fa-download"></i></a> -->
+                            
                         </td>
                     </tr>
 

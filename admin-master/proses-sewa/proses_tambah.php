@@ -15,7 +15,7 @@
 
 <?php
 include '../../config/config.php';
-include '../../phpqrcode/phpqrcode/qrlib.php';
+include '../../phpqrcode/qrlib.php';
 session_start();
 if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       echo "<script>
@@ -29,8 +29,8 @@ if (isset($_POST['submit-sewa'])) {
   $qrcode_id        = $_POST['qrcode_id'];   
   $qrcode_data      = "https://nur-app.000webhostapp.com/admin-master/e-sapa.php?qrcodeid=".$qrcode_id;
   $tempdir          = "../../img-qrcode/";
-                      // if (!file_exists($tempdir))
-                      // mkdir($tmpdir, 0755);
+                      if (!file_exists($tempdir))
+                      mkdir($tmpdir, 0755);
   $file_name        = date("Ymd").rand().".png";
   $file_path        = $tempdir.$file_name;
 
@@ -64,7 +64,7 @@ if (isset($_POST['submit-sewa'])) {
   $author_nama             = $_SESSION['nama'];
 
 
-  $query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_path', '$qrcode_data', '$author_nik', '$author_nama')");
+  $query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$author_nik', '$author_nama')");
 
   // $query = $koneksi->query("INSERT INTO tbl_test(nama,pasar,harga) VALUES('$nama', '$pasar', '$harga_sewa')");
 
