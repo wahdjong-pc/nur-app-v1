@@ -22,6 +22,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
          alert('Maaf anda harus login terlebih dahulu');document.location='../../index.php'
      </script>";
      }
+ 
 
 if (isset($_POST['submit-sewa'])) {
 
@@ -63,8 +64,27 @@ if (isset($_POST['submit-sewa'])) {
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
 
+  $cekData = $koneksi->query("SELECT * FROM tbl_sewa WHERE pasar = '$pasar' AND jenis_pasar = '$jenis_pasar' AND blok_nomor = '$blok_nomor'");
 
-  $query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$author_nik', '$author_nama')");
+  $resultCek = mysqli_num_rows($cekData);
+
+  if($resultCek > 0){
+    // pesan jika data tersimpan
+    echo "<script>
+    Swal.fire({
+        title: 'Berhasil',
+        text: 'Maaf data pasar ". $pasar ." blok nomor ". $blok_nomor ." sudah ada yang menyewa!',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href='../data-sewa.php'
+        }
+      })
+    </script>";
+  }else{
+
+$query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$author_nik', '$author_nama')");
 
   // $query = $koneksi->query("INSERT INTO tbl_test(nama,pasar,harga) VALUES('$nama', '$pasar', '$harga_sewa')");
 
@@ -86,6 +106,8 @@ if ($query) {
   } else {
     // pesan jika data gagal disimpan
     echo "<script>alert('Data sewa gagal ditambahkan'); window.location.href='../data-sewa.php'</script>";
+  }
+   
   }
 }
 

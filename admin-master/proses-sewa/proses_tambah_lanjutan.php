@@ -23,7 +23,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
      }
 
 if (isset($_POST['submit-sewa-lanjutan'])) {
-  $id_sewa          = $_POST['idSewa'];
+
+  $qrcode_id        = $_POST['qrCodeId'];
+  $src_qrcode       = $_POST['srcQrCode'];
+  $link_qrcode      = $_POST['linkQrCode'];
   $nik              = $_POST['nik'];
   $nama             = $_POST['nama'];
   $tmp_lahir        = $_POST['tmpLahir'];
@@ -51,7 +54,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
 
-  $cekData = $koneksi->query("SELECT * FROM tbl_sewa WHERE id_sewa = '$id_sewa' AND blok_nomor = '$blok_nomor' AND pembayaran_bulan = '$pembayaran_bulan' AND pembayaran_tahun = '$pembayaran_tahun'");
+  $cekData = $koneksi->query("SELECT * FROM tbl_sewa WHERE qrcode_id = '$qrcode_id' AND blok_nomor = '$blok_nomor' AND pembayaran_bulan = '$pembayaran_bulan' AND pembayaran_tahun = '$pembayaran_tahun'");
 
   $resultCek = mysqli_num_rows($cekData);
 
@@ -72,7 +75,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
     </script>";
   }else{
 
-  $query = $koneksi->query("INSERT INTO tbl_sewa(nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,author_nik,author_nama) VALUES('$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenisKelaminAngka', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$author_nik', '$author_nama')");
+  $query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenisKelaminAngka', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$src_qrcode', '$link_qrcode', '$author_nik', '$author_nama')");
 
 
 

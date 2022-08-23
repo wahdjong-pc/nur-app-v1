@@ -33,8 +33,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
   <script type="text/javascript">
 
-    function showDataSewa(idSewa, nik, nama, tmpLahir, tglLahir, jenisKelamin, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo)  {
-      let idsewa                  = idSewa;
+    function showDataSewa(qrCodeId, srcQrcode, linkQrcode, nik, nama, tmpLahir, tglLahir, jenisKelamin, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo)  {
+      let qrcodeId                = qrCodeId;
+      let srcqrcode               = srcQrcode;
+      let linkqrcode              = linkQrcode;
       let nikPenyewa              = nik;
       let namaPenyewa             = nama;
       let tempatLahirPenyewa      = tmpLahir;
@@ -52,7 +54,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       let sampaiShpPenyewa        = sampaiShp;
       let tglTempoPenyewa         = tglTempo;  
 
-      document.getElementById("idSewa").value                   = idSewa;
+      document.getElementById("qrCodeId").value                 = qrcodeId;
+      document.getElementById("srcQrCode").value                = srcqrcode;
+      document.getElementById("linkQrCode").value               = linkqrcode;
       document.getElementById("nikPenyewa").value               = nikPenyewa;
       document.getElementById("namaPenyewa").value              = namaPenyewa;
       document.getElementById("tmpLahirPenyewa").value          = tempatLahirPenyewa;
@@ -230,7 +234,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
               
               ?>
 
-              <form action="proses-sewa/proses_tambah.php" id="formDataSewa" method="post">
+              <form action="proses-sewa/proses_tambah.php" enctype="multipart/form-data" id="formDataSewa" method="post">
               <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -514,8 +518,16 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
-                    
 
+                    <div class="form-group">
+                        <label>UPLOAD FOTO :</label>
+
+                        <div class="custom-file input-group">
+                         <input type="file" class="custom-file-input" id="fileFoto" name="fileFoto">
+                         <label class="custom-file-label" for="customFile">Choose file</label>
+                       </div>
+                    </div>
+                    <!-- /.form group -->
                         
                     </div>
                 </div>
@@ -1064,13 +1076,15 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                 <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>ID SEWA :</label>
+                        <label>QRCODE ID :</label>
 
                         <div class="input-group">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
-                            <input type="number" class="form-control" id="idSewa" name="idSewa" readonly>
+                            <input type="text" class="form-control" id="qrCodeId" name="qrCodeId" readonly>
+                            <input type="text" class="form-control" id="srcQrCode" name="srcQrCode" hidden>
+                            <input type="text" class="form-control" id="linkQrCode" name="linkQrCode" hidden>
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -1332,7 +1346,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
   
     <div class="modal fade" id="modal-qrcode">
         <div class="modal-dialog modal-default">
-          <div class="modal-content">
+          <div class="modal-content" style="background-image: radial-gradient(circle at 67% 83%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 1%,transparent 1%, transparent 5%,transparent 5%, transparent 100%),radial-gradient(circle at 24% 80%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 27%,transparent 27%, transparent 63%,transparent 63%, transparent 100%),radial-gradient(circle at 23% 5%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 26%,transparent 26%, transparent 82%,transparent 82%, transparent 100%),radial-gradient(circle at 21% 11%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 35%,transparent 35%, transparent 45%,transparent 45%, transparent 100%),radial-gradient(circle at 10% 11%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 21%,transparent 21%, transparent 81%,transparent 81%, transparent 100%),radial-gradient(circle at 19% 61%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 20%,transparent 20%, transparent 61%,transparent 61%, transparent 100%),radial-gradient(circle at 13% 77%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 63%,transparent 63%, transparent 72%,transparent 72%, transparent 100%),radial-gradient(circle at 30% 93%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 33%,transparent 33%, transparent 82%,transparent 82%, transparent 100%),linear-gradient(90deg, rgb(255,115,150),rgb(243,120,120));">
             <div class="modal-header">
              <h4 class="modal-title text-center" style="margin-left: 10px;"><b>UPTD PELAYANAN PASAR BANGKA TENGAH</b></h4>
               
@@ -1342,13 +1356,13 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
               <div class="col-md-5">
                <h2 id="pasarQr" style="
                        position: absolute;
-                       top: 35px;
+                       top: 60px;
                        left: 155%;">
                </h2>
                <img src="../img-qrcode/logo.png" style="
                        position: absolute;
                        width: 120px;
-                       top: 82px;
+                       top: 130px;
                        left: 95px;
                
                
@@ -1359,14 +1373,17 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                        border: 2px solid black;
                        padding: 25px;
                        margin-left: 20px;
+                       margin-top: 40px;
                  
                  ">
-               <h2 id="blokNomorQr"style="
+               <h1 id="blokNomorQr"style="
                        position: relative;
                        top: -30%;
-                       left: 163%;
-                       color: blue;">
-               </h2>
+                       left: 165%;
+                       color: blue;
+                       font-weight: bold;
+                       ">
+               </h1>
                  
               </div>
               
@@ -1438,7 +1455,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <td>
                             <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
                             <button onclick="hapus(<?= $data['id_sewa']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>
-                            <a onclick="return showDataSewa('<?= $data['id_sewa'] ;?>',
+                            <a onclick="return showDataSewa('<?= $data['qrcode_id'] ;?>',
+                                                            '<?= $data['src_qrcode'] ;?>',
+                                                            '<?= $data['link_qrcode'] ;?>',
                                                             '<?= $data['nik'] ;?>',
                                                             '<?= $data['nama'] ;?>',
                                                             '<?= $data['tmpt_lahir'] ;?>',
@@ -1507,6 +1526,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
+<!-- bs-custom-file-input -->
+<script src="../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+
 <!-- jquery-validation -->
 <script src="../plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="../plugins/jquery-validation/additional-methods.min.js"></script>
@@ -1519,6 +1542,10 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
 <!-- Page specific script -->
 <script type="text/javascript">
+ $(function () {
+  bsCustomFileInput.init();
+});
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -1575,6 +1602,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       sampaiShp: {
         required: true,
       },
+      fileFoto: {
+        required: true,
+      },
 
     },
     messages: {
@@ -1624,6 +1654,9 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       },
       sampaiShp: {
         required: "Mohon dipilih sampai tanggal shp nya!",
+      },
+      fileFoto: {
+        required: "Mohon dipilih foto nya!",
       },
     },
     errorElement: 'span',
@@ -1858,6 +1891,7 @@ function pilihBlok(){
 
 } 
 // end function choice add data sewa
+
 
 
 </script>
