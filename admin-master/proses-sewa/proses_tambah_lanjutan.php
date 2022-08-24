@@ -50,6 +50,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
   $dari_shp         = $_POST['dariShp'];
   $sampai_shp       = $_POST['sampaiShp'];
   $tgl_tempo        = $_POST['tglTempo'];
+  $file_foto        = $_POST['fileFotoPenyewa'];
 
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
@@ -75,7 +76,7 @@ if (isset($_POST['submit-sewa-lanjutan'])) {
     </script>";
   }else{
 
-  $query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenisKelaminAngka', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$src_qrcode', '$link_qrcode', '$author_nik', '$author_nama')");
+  $query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,foto,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenisKelaminAngka', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$src_qrcode', '$link_qrcode', '$file_foto', '$author_nik', '$author_nama')");
 
 
 

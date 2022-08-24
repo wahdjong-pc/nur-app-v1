@@ -33,7 +33,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
 
   <script type="text/javascript">
 
-    function showDataSewa(qrCodeId, srcQrcode, linkQrcode, nik, nama, tmpLahir, tglLahir, jenisKelamin, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo)  {
+    function showDataSewa(qrCodeId, srcQrcode, linkQrcode, nik, nama, tmpLahir, tglLahir, jenisKelamin, alamat, noHp, pasar, jenisPasar, blokNomor, hargaSewa, pembayaranBulan, jenisDagangan, dariShp, sampaiShp, tglTempo, foto)  {
       let qrcodeId                = qrCodeId;
       let srcqrcode               = srcQrcode;
       let linkqrcode              = linkQrcode;
@@ -53,6 +53,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       let dariShpPenyewa          = dariShp;
       let sampaiShpPenyewa        = sampaiShp;
       let tglTempoPenyewa         = tglTempo;  
+      let fotoPenyewa             = foto;  
 
       document.getElementById("qrCodeId").value                 = qrcodeId;
       document.getElementById("srcQrCode").value                = srcqrcode;
@@ -78,6 +79,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
       document.getElementById("jenisDaganganPenyewa").value     = jenisDagangPenyewa;
       document.getElementById("dariShpPenyewa").value           = dariShpPenyewa;
       document.getElementById("sampaiShpPenyewa").value         = sampaiShpPenyewa;
+      document.getElementById("fileFotoPenyewa").value          = fotoPenyewa;
 
     }
 
@@ -1341,10 +1343,12 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                             <span class="input-group-text"><i class="far fa-dot-circle"></i></span>
                             </div>
                             <input type="text" class="form-control" id="tglTempo" name="tglTempo" value="Tanggal 28 Setiap Bulan" readonly>
+                            
                         </div>
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
+                    <input type="text" class="form-control" id="fileFotoPenyewa" name="fileFotoPenyewa" hidden>
                     </div>
                 </div>
                 
@@ -1494,7 +1498,8 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                                                             '<?= $data['jenis_dagangan'] ;?>',
                                                             '<?= $data['dari_shp'] ;?>',
                                                             '<?= $data['sampai_shp'] ;?>',
-                                                            '<?= $data['tgl_tempo'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-sewa"><i class="fa fa-plus"></i></a>
+                                                            '<?= $data['tgl_tempo'] ;?>',
+                                                            '<?= $data['foto'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-sewa"><i class="fa fa-plus"></i></a>
                             <a onclick='document.getElementById("qrcodeImage").src="../img-qrcode/<?= $srcQrcode; ?>";
                                         document.getElementById("blokNomorQr").innerHTML = "<?= $blok; ?>" 
                                         document.getElementById("pasarQr").innerHTML = "PASAR MODERN <b><?= $pasar; ?></b>"'; 
