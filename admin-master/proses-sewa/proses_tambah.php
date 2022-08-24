@@ -61,6 +61,20 @@ if (isset($_POST['submit-sewa'])) {
   $sampai_shp       = $_POST['sampaiShp'];
   $tgl_tempo        = $_POST['tglTempo'];
 
+  $nama_foto         = $_FILES['fileFoto']['name'];
+  $size_foto         = $_FILES['fileFoto']['size'];
+  $error             = $_FILES['fileFoto']['error'];
+  $tmp_name          = $_FILES['fileFoto']['tmp_name'];
+
+  //cek file yang di upload
+  $xtensi_file_valid = ['jpg', 'jpeg'];
+  $xtensi_file       = explode('.', $nama_foto);
+  $xtensi_file       = strtolower(end($xtensi_file));
+
+  
+
+
+
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
 
@@ -68,7 +82,36 @@ if (isset($_POST['submit-sewa'])) {
 
   $resultCek = mysqli_num_rows($cekData);
 
-  if($resultCek > 0){
+
+  if (!in_array($xtensi_file, $xtensi_file_valid)) {
+   echo "<script>
+    Swal.fire({
+        title: 'Gagal',
+        text: 'Maaf format file tidak valid!',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href='../data-sewa.php'
+        }
+      })
+    </script>";
+    die();
+  }else if ($size_foto > 1024000) {
+   echo "<script>
+    Swal.fire({
+        title: 'Gagal',
+        text: 'Maaf ukuran file tidak boleh lebih dari 1 MB!',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href='../data-sewa.php'
+        }
+      })
+    </script>";
+    die();
+  }else if($resultCek > 0){
     // pesan jika data tersimpan
     echo "<script>
     Swal.fire({
@@ -83,11 +126,17 @@ if (isset($_POST['submit-sewa'])) {
       })
     </script>";
   }else{
+   $new_foto          = uniqid();
+   $new_foto          .= '.';
+   $new_foto          .= $xtensi_file;
 
-$query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$author_nik', '$author_nama')");
+   move_uploaded_file($tmp_name, '../../foto-pedagang/'. $new_foto);
+
+$query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,foto,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$new_foto', '$author_nik', '$author_nama')");
 
   // $query = $koneksi->query("INSERT INTO tbl_test(nama,pasar,harga) VALUES('$nama', '$pasar', '$harga_sewa')");
 
+  
 
 if ($query) {
     // pesan jika data tersimpan

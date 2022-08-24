@@ -561,7 +561,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                 <h3 class="card-title">Edit data sewa</h3>
               </div>
 
-              <form action="proses-sewa/proses_edit.php" id="formDataSewa" method="post">
+              <form action="proses-sewa/proses_edit.php" id="formDataSewa" method="post" enctype="multipart/form-data">
               <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -1036,13 +1036,32 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
+
+                    <div class="form-group">
+                        <label>UPLOAD FOTO :</label>
+
+                        <div class="custom-file input-group">
+                         <input type="file" class="custom-file-input" id="fileFoto" name="fileFoto" value="<?= $data_sewa['foto']; ?>">
+                         <input type="text" name="fotoLama" value="<?= $data_sewa['foto']; ?>" hidden>
+                         <label class="custom-file-label" for="customFile">Choose file</label>
+                       </div>
+                    </div>
+                    <!-- /.form group -->
                     
 
                         
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-block btn-outline-success" name="submit-edit-sewa">Edit Data Sewa</button>
+                <div class="row">
+                 <div class="col-md-6">
+                  <button type="submit" class="btn btn-block btn-outline-success" name="submit-edit-sewa">Edit Data Sewa</button>
+                 </div>
+                 <div class="col-md-6">
+                  <a href="data-sewa.php" class="btn btn-block btn-outline-danger">Cancel</a> 
+                 </div>
+                </div>
+                
               </div>  
               <!-- /.card-body -->
             </form>
@@ -1421,6 +1440,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <th>HARGA SEWA</th>
                         <th>JENIS DAGANGAN</th>
                         <th>PEMBAYARAN BULAN - TAHUN</th>
+                        <th>FOTO PEDAGANG</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>
@@ -1452,6 +1472,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <td>Rp.<?= $harga_sewa; ?></td>
                         <td><?= $data['jenis_dagangan']; ?></td>
                         <td><?= $data['pembayaran_bulan'];?> <?= $data['pembayaran_tahun'];?></td>
+                        <td><img src="../foto-pedagang/<?= $data['foto']; ?>" style="width: 70px;height: 70px;" alt=""></td>
                         <td>
                             <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
                             <button onclick="hapus(<?= $data['id_sewa']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>

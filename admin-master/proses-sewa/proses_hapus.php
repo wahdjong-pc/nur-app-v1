@@ -20,9 +20,16 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
          alert('Maaf anda harus login terlebih dahulu');document.location='../../index.php'
      </script>";
      }
-     
+
 if (isset($_GET['id'])) {
   $id_sewa = $_GET['id'];
+  
+  $showData = $koneksi->query("SELECT * FROM tbl_sewa WHERE id_sewa = '$id_sewa'");
+  foreach($showData as $data){
+   unlink("../../foto-pedagang/". $data['foto']);
+   unlink("../../img-qrcode/". $data['src_qrcode']);
+  } 
+  
 // perintah hapus data berdasarkan id yang dikirimkan
   $query = $koneksi->query("DELETE FROM tbl_sewa WHERE id_sewa = '$id_sewa'");
 // cek perintah

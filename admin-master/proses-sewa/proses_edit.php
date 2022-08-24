@@ -47,49 +47,101 @@ if (isset($_POST['submit-edit-sewa'])) {
   $sampai_shp       = $_POST['sampaiShp'];
   $tgl_tempo        = $_POST['tglTempo'];
 
+  $nama_foto         = $_FILES['fileFoto']['name'];
+  $size_foto         = $_FILES['fileFoto']['size'];
+  $error             = $_FILES['fileFoto']['error'];
+  $tmp_name          = $_FILES['fileFoto']['tmp_name'];
+
+  //cek file yang di upload
+  $xtensi_file_valid = ['jpg', 'jpeg'];
+  $xtensi_file       = explode('.', $nama_foto);
+  $xtensi_file       = strtolower(end($xtensi_file));
+
+  
   $author_nik              = $_SESSION['nik'];
   $author_nama             = $_SESSION['nama'];
 
 
-$query = $koneksi->query("UPDATE tbl_sewa SET 
-nik              = '$nik', 
-nama             = '$nama', 
-tmpt_lahir       = '$tmp_lahir', 
-tgl_lahir        = '$tgl_lahir',
-jenis_kelamin    = '$jenis_kelamin',
-alamat           = '$alamat',
-no_hp            = '$no_hp',
-pasar            = '$pasar',
-jenis_pasar      = '$jenis_pasar',
-blok_nomor       = '$blok_nomor',
-harga_sewa       = '$harga_sewa',
-pembayaran_bulan = '$pembayaran_bulan',
-pembayaran_tahun = '$pembayaran_tahun',
-jenis_dagangan   = '$jenis_dagangan',
-dari_shp         = '$dari_shp',
-sampai_shp       = '$sampai_shp',
-tgl_tempo        = '$tgl_tempo',
-author_nik       = '$author_nik',
-author_nama      = '$author_nama' WHERE nik = '$nik'");
 
-if ($query) {
-    // pesan jika data berubah
-    echo "<script>
+if (!in_array($xtensi_file, $xtensi_file_valid)) {
+   echo "<script>
     Swal.fire({
-     title: 'Berhasil',
-     text: 'Data sewa berhasil diubah!',
-     icon: 'success',
-     confirmButtonColor: '#3085d6'
-   }).then((result) => {
-     if (result.isConfirmed) {
-       window.location.href='../data-sewa.php'
-     }
-   })
-</script>";
-  } else {
-    // pesan jika data gagal diubah
-    echo "<script>alert('Data sewa gagal diubah'); window.location.href='../data-sewa.php'</script>";
-  }
+        title: 'Gagal',
+        text: 'Maaf format file tidak valid!',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href='../data-sewa.php'
+        }
+      })
+    </script>";
+    die();
+  }else if ($size_foto > 1024000) {
+   echo "<script>
+    Swal.fire({
+        title: 'Gagal',
+        text: 'Maaf ukuran file tidak boleh lebih dari 1 MB!',
+        icon: 'error',
+        confirmButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href='../data-sewa.php'
+        }
+      })
+    </script>";
+    die();
+  }else { 
+   $new_foto          = uniqid();
+   $new_foto          .= '.';
+   $new_foto          .= $xtensi_file;
+   $foto_lama         = $_POST['fotoLama'];
+
+   move_uploaded_file($tmp_name, '../../foto-pedagang/'. $new_foto);
+   unlink("../../foto-pedagang/". $foto_lama);
+
+  
+   $query = $koneksi->query("UPDATE tbl_sewa SET 
+    nik              = '$nik', 
+    nama             = '$nama', 
+    tmpt_lahir       = '$tmp_lahir', 
+    tgl_lahir        = '$tgl_lahir',
+    jenis_kelamin    = '$jenis_kelamin',
+    alamat           = '$alamat',
+    no_hp            = '$no_hp',
+    pasar            = '$pasar',
+    jenis_pasar      = '$jenis_pasar',
+    blok_nomor       = '$blok_nomor',
+    harga_sewa       = '$harga_sewa',
+    pembayaran_bulan = '$pembayaran_bulan',
+    pembayaran_tahun = '$pembayaran_tahun',
+    jenis_dagangan   = '$jenis_dagangan',
+    dari_shp         = '$dari_shp',
+    sampai_shp       = '$sampai_shp',
+    tgl_tempo        = '$tgl_tempo',
+    foto             = '$new_foto',
+    author_nik       = '$author_nik',
+    author_nama      = '$author_nama' WHERE nik = '$nik'");
+
+   if ($query) {
+      // pesan jika data berubah
+      echo "<script>
+      Swal.fire({
+       title: 'Berhasil',
+       text: 'Data sewa berhasil diubah!',
+       icon: 'success',
+       confirmButtonColor: '#3085d6'
+     }).then((result) => {
+       if (result.isConfirmed) {
+         window.location.href='../data-sewa.php'
+       }
+     })
+  </script>";
+    } else {
+      // pesan jika data gagal diubah
+      echo "<script>alert('Data sewa gagal diubah'); window.location.href='../data-sewa.php'</script>";
+    }
+ }
 }
 ?>
 </body>
