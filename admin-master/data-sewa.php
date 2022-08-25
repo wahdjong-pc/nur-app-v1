@@ -1477,6 +1477,7 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                         <td><?= $data['jenis_dagangan']; ?></td>
                         <td><?= $data['pembayaran_bulan'];?> <?= $data['pembayaran_tahun'];?></td>
                         <td><img src="../foto-pedagang/<?= $data['foto']; ?>" style="width: 70px;height: 70px;" alt=""></td>
+                        <?php if ($data['file_shp'] == "-") { ?>
                         <td>
                             <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
                             <button onclick="hapus(<?= $data['id_sewa']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>
@@ -1504,9 +1505,43 @@ if (empty($_SESSION['nik']) or empty($_SESSION['role'])) {
                                         document.getElementById("blokNomorQr").innerHTML = "<?= $blok; ?>" 
                                         document.getElementById("pasarQr").innerHTML = "PASAR MODERN <b><?= $pasar; ?></b>"'; 
                                         class="btn btn-outline-success btn-sm" title="Show QrCode" data-toggle="modal" data-target="#modal-qrcode"><i class="fa fa-qrcode"></i></a>
-                            <!-- <a href="" class="btn btn-outline-primary btn-sm" title="Download"><i class="fa fa-download"></i></a> -->
+
+                            
+                             <a href="../result-shp.php?qrcodeid=<?= $data['qrcode_id']; ?>" class="btn btn-primary btn-xs" title="Dokumen SHP">File SHP</i></a> 
+                             <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-warning btn-xs" title="Upload File SHP">Upload File SHP</a> 
                             
                         </td>
+                        <?php }else{ ?>
+                        <td>
+                            <a href="data-sewa.php?id=<?= $data['id_sewa']; ?>" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pen"></i></a> 
+                            <button onclick="hapus(<?= $data['id_sewa']; ?>)" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>
+                            <a onclick="return showDataSewa('<?= $data['qrcode_id'] ;?>',
+                                                            '<?= $data['src_qrcode'] ;?>',
+                                                            '<?= $data['link_qrcode'] ;?>',
+                                                            '<?= $data['nik'] ;?>',
+                                                            '<?= $data['nama'] ;?>',
+                                                            '<?= $data['tmpt_lahir'] ;?>',
+                                                            '<?= $data['tgl_lahir'] ;?>',
+                                                            '<?= $data['jenis_kelamin'] ;?>',
+                                                            '<?= $data['alamat'] ;?>',
+                                                            '<?= $data['no_hp'] ;?>',
+                                                            '<?= $data['pasar'] ;?>',
+                                                            '<?= $data['jenis_pasar'] ;?>',
+                                                            '<?= $data['blok_nomor'] ;?>',
+                                                            '<?= $data['harga_sewa'] ;?>',
+                                                            '<?= $data['pembayaran_bulan'] ;?>',
+                                                            '<?= $data['jenis_dagangan'] ;?>',
+                                                            '<?= $data['dari_shp'] ;?>',
+                                                            '<?= $data['sampai_shp'] ;?>',
+                                                            '<?= $data['tgl_tempo'] ;?>',
+                                                            '<?= $data['foto'] ;?>')" class="btn btn-outline-warning btn-sm" title="Tambah Data Retrbusi" data-toggle="modal" data-target="#modal-sewa"><i class="fa fa-plus"></i></a>
+                            <a onclick='document.getElementById("qrcodeImage").src="../img-qrcode/<?= $srcQrcode; ?>";
+                                        document.getElementById("blokNomorQr").innerHTML = "<?= $blok; ?>" 
+                                        document.getElementById("pasarQr").innerHTML = "PASAR MODERN <b><?= $pasar; ?></b>"'; 
+                                        class="btn btn-outline-success btn-sm" title="Show QrCode" data-toggle="modal" data-target="#modal-qrcode"><i class="fa fa-qrcode"></i></a>
+                            
+                        </td>
+                        <?php } ?>
                     </tr>
 
                 <?php endwhile; ?>

@@ -71,8 +71,7 @@ if (isset($_POST['submit-sewa'])) {
   $xtensi_file       = explode('.', $nama_foto);
   $xtensi_file       = strtolower(end($xtensi_file));
 
-  
-
+  $file_shp          = "-";
 
 
   $author_nik              = $_SESSION['nik'];
@@ -132,7 +131,7 @@ if (isset($_POST['submit-sewa'])) {
 
    move_uploaded_file($tmp_name, '../../foto-pedagang/'. $new_foto);
 
-$query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,foto,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$new_foto', '$author_nik', '$author_nama')");
+$query = $koneksi->query("INSERT INTO tbl_sewa(qrcode_id,nik,nama,tmpt_lahir,tgl_lahir,jenis_kelamin,alamat,no_hp,pasar,jenis_pasar,blok_nomor,harga_sewa,pembayaran_bulan,pembayaran_tahun,jenis_dagangan,dari_shp,sampai_shp,tgl_tempo,src_qrcode,link_qrcode,foto,file_shp,author_nik,author_nama) VALUES('$qrcode_id','$nik', '$nama', '$tmp_lahir', '$tgl_lahir', '$jenis_kelamin', '$alamat', '$no_hp', '$pasar', '$jenis_pasar', '$blok_nomor', '$harga_sewa', '$pembayaran_bulan', '$pembayaran_tahun', '$jenis_dagangan', '$dari_shp', '$sampai_shp', '$tgl_tempo', '$file_name', '$qrcode_data', '$new_foto', '$file_shp', '$author_nik', '$author_nama')");
 
   // $query = $koneksi->query("INSERT INTO tbl_test(nama,pasar,harga) VALUES('$nama', '$pasar', '$harga_sewa')");
 
